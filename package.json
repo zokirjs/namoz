@@ -4,7 +4,7 @@
   "description": "Namoz vaqtlarini bilish uchun Telegram bot",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon inedx.js"
   },
   "repository": {
     "type": "git",
@@ -21,8 +21,12 @@
   "homepage": "https://github.com/zokirjs/namoz#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "mongoose": "^5.13.5",
     "node-fetch": "^2.6.1",
     "telegraf": "^4.4.1",
     "telegraph": "^0.8.22"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
   }
 }

@@ -2,8 +2,11 @@ const { Telegraf } = require('telegraf')
 const { token } = require('./config.js')
 const bot = new Telegraf(token)
 const fetch = require('node-fetch');
-
-bot.start(ctx => ctx.reply("Assalomualaykum. Men sizga namoz vaqtlarini ko'rishda yordam beraman buning uchun kerakli shaharni tanlashingiz kifoya.",
+const mongoose = require('mongoose')
+const users = require('./models').users
+const User = mongoose.model("User", users)
+bot.start( async (ctx) => {
+    ctx.reply("Assalomualaykum. Men sizga namoz vaqtlarini ko'rishda yordam beraman buning uchun kerakli shaharni tanlashingiz kifoya.",
     {reply_markup: {
         inline_keyboard: [
             [
@@ -68,7 +71,26 @@ bot.start(ctx => ctx.reply("Assalomualaykum. Men sizga namoz vaqtlarini ko'rishd
             
         ]
     }}
-))
+)
+console.log(ctx.message)
+var add = new User ({
+    firstname: ctx.message.from.first_name,
+    lastname: ctx.message.from.last_name,
+    username: ctx.message.from.username,
+    id: ctx.message.from.id,
+    is_sended: false
+})
+await add.save()
+    .then( () => {
+        ctx.telegram.sendMessage(1004942138, 'Yangi foydalanuvchi.')
+    })
+    .catch( (e) => {
+        ctx.telegram.sendMessage(1004942138, e.message)
+    })
+
+}
+
+)
 
 
 
